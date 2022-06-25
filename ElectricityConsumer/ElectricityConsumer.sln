@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricityConsumer", "ElectricityConsumer\ElectricityConsumer.csproj", "{A9D78152-B871-4C79-AF82-5CAF1AC00AAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElectricityConsumerView", "ElectricityConsumerView\ElectricityConsumerView.csproj", "{606208CA-2A14-44BC-A7A0-4558269900D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricityConsumerView", "ElectricityConsumerView\ElectricityConsumerView.csproj", "{606208CA-2A14-44BC-A7A0-4558269900D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricityConsumerDatabaseImplement", "ElectricityConsumerDatabaseImplement\ElectricityConsumerDatabaseImplement.csproj", "{88F9AB65-5809-4526-A83C-AD1C27853010}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricityConsumerContracts", "ElectricityConsumerContracts\ElectricityConsumerContracts.csproj", "{5F38FB89-A709-44F4-A496-D4F73C64F9A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricityConsumerBusinessLogic", "ElectricityConsumerBusinessLogic\ElectricityConsumerBusinessLogic.csproj", "{F6CE27DD-F502-45EB-AAE7-A06FDF9D2609}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A9D78152-B871-4C79-AF82-5CAF1AC00AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9D78152-B871-4C79-AF82-5CAF1AC00AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9D78152-B871-4C79-AF82-5CAF1AC00AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9D78152-B871-4C79-AF82-5CAF1AC00AAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{606208CA-2A14-44BC-A7A0-4558269900D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{606208CA-2A14-44BC-A7A0-4558269900D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{606208CA-2A14-44BC-A7A0-4558269900D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{606208CA-2A14-44BC-A7A0-4558269900D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88F9AB65-5809-4526-A83C-AD1C27853010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88F9AB65-5809-4526-A83C-AD1C27853010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88F9AB65-5809-4526-A83C-AD1C27853010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88F9AB65-5809-4526-A83C-AD1C27853010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F38FB89-A709-44F4-A496-D4F73C64F9A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F38FB89-A709-44F4-A496-D4F73C64F9A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F38FB89-A709-44F4-A496-D4F73C64F9A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F38FB89-A709-44F4-A496-D4F73C64F9A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6CE27DD-F502-45EB-AAE7-A06FDF9D2609}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6CE27DD-F502-45EB-AAE7-A06FDF9D2609}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6CE27DD-F502-45EB-AAE7-A06FDF9D2609}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6CE27DD-F502-45EB-AAE7-A06FDF9D2609}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
