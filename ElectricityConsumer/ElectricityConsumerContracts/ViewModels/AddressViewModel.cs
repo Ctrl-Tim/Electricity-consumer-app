@@ -21,5 +21,8 @@ namespace ElectricityConsumerContracts.ViewModels
 
         [DisplayName("Квартира")]
         public int Flat { get; set; }
+
+        [DisplayName("ФИО потребителя")]
+        public string ConsumerFIO { get; set; }
     }
 }

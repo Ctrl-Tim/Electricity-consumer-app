@@ -27,9 +27,12 @@ namespace ElectricityConsumerContracts.ViewModels
         public decimal Number { get; set; }
 
         [DisplayName("Дата приёмки")]
-        public DateTime DateOfCheck { get; set; }
+        public DateTime? DateOfCheck { get; set; }
 
         [DisplayName("Срок госпроверки (лет)")]
         public int InspectionPeriod { get; set; }
+
+        [DisplayName("Дата последней госпроверки")]
+        public DateTime? FinalInspection { get; set; }
     }
 }

@@ -17,10 +17,15 @@ namespace ElectricityConsumerDatabaseImplement.Models
         [Required]
         public decimal Number { get; set; }
 
-        [Required]
-        public DateTime DateOfCheck { get; set; }
+        public DateTime? DateOfCheck { get; set; }
 
         [Required]
         public int InspectionPeriod { get; set; }
+
+        public DateTime? FinalInspection { get; set; }
+
+        public Type Type { get; set; }
+
+        public Address Address { get; set; }
     }
 }
