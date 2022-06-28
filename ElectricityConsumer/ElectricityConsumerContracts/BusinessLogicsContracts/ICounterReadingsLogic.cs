@@ -8,7 +8,7 @@ namespace ElectricityConsumerContracts.BusinessLogicsContracts
     {
         List<CounterReadingsViewModel> Read(CounterReadingsBindingModel model);
 
-        void CreateReading(CounterReadingsBindingModel model);
+        void CreateReading(CreateReadingBindingModel model);
 
         //List<CounterReadingsViewModel> SaveReadings(CounterReadingsBindingModel model);
     }

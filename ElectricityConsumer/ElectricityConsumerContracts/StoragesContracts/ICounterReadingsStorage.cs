@@ -9,6 +9,7 @@ namespace ElectricityConsumerContracts.StoragesContracts
 		List<CounterReadingsViewModel> GetFullList();
 		List<CounterReadingsViewModel> GetFilteredList(CounterReadingsBindingModel model);
 		CounterReadingsViewModel GetElement(CounterReadingsBindingModel model);
+
 		void Insert(CounterReadingsBindingModel model);
 		void Update(CounterReadingsBindingModel model);
 		void Delete(CounterReadingsBindingModel model);

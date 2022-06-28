@@ -15,8 +15,10 @@ namespace ElectricityConsumerContracts.BindingModels
 
         public decimal Number { get; set; }
 
-        public DateTime DateOfCheck { get; set; }
+        public DateTime? DateOfCheck { get; set; }
 
         public int InspectionPeriod { get; set; }
+
+        public DateTime? FinalInspection { get; set; }
     }
 }

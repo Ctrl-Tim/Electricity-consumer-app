@@ -9,6 +9,7 @@ namespace ElectricityConsumerContracts.StoragesContracts
 		List<ConsumerViewModel> GetFullList();
 		List<ConsumerViewModel> GetFilteredList(ConsumerBindingModel model);
 		ConsumerViewModel GetElement(ConsumerBindingModel model);
+
 		void Insert(ConsumerBindingModel model);
 		void Update(ConsumerBindingModel model);
 		void Delete(ConsumerBindingModel model);

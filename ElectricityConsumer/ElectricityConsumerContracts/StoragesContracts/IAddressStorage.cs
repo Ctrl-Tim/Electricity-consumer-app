@@ -9,6 +9,7 @@ namespace ElectricityConsumerContracts.StoragesContracts
 		List<AddressViewModel> GetFullList();
 		List<AddressViewModel> GetFilteredList(AddressBindingModel model);
 		AddressViewModel GetElement(AddressBindingModel model);
+
 		void Insert(AddressBindingModel model);
 		void Update(AddressBindingModel model);
 		void Delete(AddressBindingModel model);
