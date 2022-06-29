@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElectricityConsumerDatabaseImplement.Models
 {
@@ -10,8 +11,6 @@ namespace ElectricityConsumerDatabaseImplement.Models
         public int Id { get; set; }
 
         public int ConsumerId { get; set; }
-
-        public int ElectricMeterId { get; set; }
 
         [Required]
         public string Street { get; set; }

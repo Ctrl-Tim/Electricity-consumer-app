@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElectricityConsumerDatabaseImplement.Models
 {
@@ -8,11 +10,11 @@ namespace ElectricityConsumerDatabaseImplement.Models
     /// </summary>
     public class ElectricMeter
     {
+        [Key]
+        [ForeignKey("Address")]
         public int Id { get; set; }
 
         public int TypeId { get; set; }
-
-        public int AddressId { get; set; }
 
         [Required]
         public decimal Number { get; set; }
@@ -24,8 +26,11 @@ namespace ElectricityConsumerDatabaseImplement.Models
 
         public DateTime? FinalInspection { get; set; }
 
-        public Type Type { get; set; }
+        public virtual TypeElectricMeter Type { get; set; }
 
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
+
+        [ForeignKey("ElectricMeterId")]
+        public virtual List<CounterReadings> CounterReadingss { get; set; }
     }
 }

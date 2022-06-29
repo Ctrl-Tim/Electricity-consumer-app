@@ -25,6 +25,18 @@ namespace ElectricityConsumerView
 
         private void FormAddress_Load(object sender, EventArgs e)
         {
+            List<ConsumerViewModel> listConsumers = _logicC.Read(null);
+            if (listConsumers != null)
+            {
+                comboBoxConsumer.DisplayMember = "FIO";
+                comboBoxConsumer.ValueMember = "Id";
+                comboBoxConsumer.DataSource = listConsumers;
+                comboBoxConsumer.SelectedItem = null;
+            }
+            else
+            {
+                throw new Exception("Не удалось загрузить список потребителей");
+            }
             if (id.HasValue)
             {
                 try
@@ -36,14 +48,6 @@ namespace ElectricityConsumerView
                         textBoxStreet.Text = view.Street;
                         textBoxHouse.Text = view.House.ToString();
                         textBoxFlat.Text = view.Flat.ToString();
-                    }
-                    List<ConsumerViewModel> listConsumers = _logicC.Read(null);
-                    if (listConsumers != null)
-                    {
-                        comboBoxConsumer.DisplayMember = "ConsumerFIO";
-                        comboBoxConsumer.ValueMember = "Id";
-                        comboBoxConsumer.DataSource = listConsumers;
-                        comboBoxConsumer.SelectedItem = null;
                     }
                     else
                     {

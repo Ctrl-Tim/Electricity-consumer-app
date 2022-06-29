@@ -34,6 +34,7 @@ namespace ElectricityConsumerView
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[4].Visible = false;
                     labelCount.Text = "Кол-во потребителей: " + list.Count;
                 }
             }
