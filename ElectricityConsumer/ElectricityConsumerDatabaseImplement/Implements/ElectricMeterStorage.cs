@@ -30,7 +30,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             using var context = new ElectricityConsumerDatabase();
             return context.ElectricMeters
                 .Include(rec => rec.Address)
-                .Where(rec => (rec.Number == model.Number) || (rec.TypeId == model.TypeId) || (rec.AddressId == model.AddressId)
+                .Where(rec => (rec.Number == model.Number) || (rec.TypeId == model.TypeId)
                                 || (rec.InspectionPeriod == model.InspectionPeriod) || (!model.DateOfCheck.HasValue && !model.FinalInspection.HasValue))
                 .ToList()
                 .Select(CreateModel)
@@ -107,7 +107,6 @@ namespace ElectricityConsumerDatabaseImplement.Implements
         private static ElectricMeter CreateModel(ElectricMeterBindingModel model, ElectricMeter electricmeter)
         {
             electricmeter.TypeId = model.TypeId;
-            electricmeter.AddressId = model.AddressId;
             electricmeter.Number = model.Number;
             electricmeter.DateOfCheck = model.DateOfCheck;
             electricmeter.InspectionPeriod = model.InspectionPeriod;
@@ -123,7 +122,6 @@ namespace ElectricityConsumerDatabaseImplement.Implements
                 Number = electricmeter.Number,
                 TypeId = electricmeter.TypeId,
                 TypeName = electricmeter.Type.Name,
-                AddressId = electricmeter.AddressId,
                 FullAddress = electricmeter.Address.Street + " " + electricmeter.Address.House + " " + electricmeter.Address.Flat,
                 ConsumerFIO = electricmeter.Address.Consumer.SurName + " " + electricmeter.Address.Consumer.FirstName + " " + electricmeter.Address.Consumer.Patronymic,
                 DateOfCheck = electricmeter.DateOfCheck,

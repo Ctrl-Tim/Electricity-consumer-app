@@ -14,7 +14,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
 		public List<CounterReadingsViewModel> GetFullList()
         {
             using var context = new ElectricityConsumerDatabase();
-            return context.CounterReadings
+            return context.CounterReadingss
                 .Include(rec => rec.ElectricMeter)
                 .ToList()
                 .Select(CreateModel)
@@ -28,7 +28,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
                 return null;
             }
             using var context = new ElectricityConsumerDatabase();
-            return context.CounterReadings
+            return context.CounterReadingss
                 .Include(rec => rec.ElectricMeter)
                 .Where(rec =>  (rec.ElectricMeterId == model.ElectricMeterId) || (rec.Date == model.Date)
                                 || (rec.BeginningOfMonth == model.BeginningOfMonth) || (rec.EndOfMonth == model.EndOfMonth))
@@ -44,7 +44,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
                 return null;
             }
             using var context = new ElectricityConsumerDatabase();
-            var component = context.CounterReadings
+            var component = context.CounterReadingss
                 .Include(rec => rec.ElectricMeter)
                 .FirstOrDefault(rec => rec.Id == model.Id);
             return component != null ? CreateModel(component) : null;
@@ -56,7 +56,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                context.CounterReadings.Add(CreateModel(model, new CounterReadings()));
+                context.CounterReadingss.Add(CreateModel(model, new CounterReadings()));
                 context.SaveChanges();
                 transaction.Commit();
             }
@@ -73,7 +73,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             using var transaction = context.Database.BeginTransaction();
             try
             {
-                var element = context.CounterReadings.FirstOrDefault(rec => rec.Id == model.Id);
+                var element = context.CounterReadingss.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
                     throw new Exception("Показание не найдено");
@@ -92,10 +92,10 @@ namespace ElectricityConsumerDatabaseImplement.Implements
 		public void Delete(CounterReadingsBindingModel model)
         {
             using var context = new ElectricityConsumerDatabase();
-            var element = context.CounterReadings.FirstOrDefault(rec => rec.Id == model.Id);
+            var element = context.CounterReadingss.FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {
-                context.CounterReadings.Remove(element);
+                context.CounterReadingss.Remove(element);
                 context.SaveChanges();
             }
             else

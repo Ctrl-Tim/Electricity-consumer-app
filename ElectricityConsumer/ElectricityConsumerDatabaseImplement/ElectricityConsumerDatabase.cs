@@ -22,6 +22,6 @@ namespace ElectricityConsumerDatabaseImplement
 
         public virtual DbSet<ElectricMeter> ElectricMeters { set; get; }
 
-        public virtual DbSet<CounterReadings> CounterReadings { set; get; }
+        public virtual DbSet<CounterReadings> CounterReadingss { set; get; }
     }
 }

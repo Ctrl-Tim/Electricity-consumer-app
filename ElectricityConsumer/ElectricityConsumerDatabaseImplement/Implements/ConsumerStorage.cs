@@ -91,7 +91,8 @@ namespace ElectricityConsumerDatabaseImplement.Implements
                 Id = consumer.Id,
                 SurName = consumer.SurName,
                 FirstName = consumer.FirstName,
-                Patronymic = consumer.Patronymic
+                Patronymic = consumer.Patronymic,
+                FIO = consumer.SurName + " " + consumer.FirstName + " " + consumer.Patronymic
             };
         }
     }

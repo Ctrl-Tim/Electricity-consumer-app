@@ -17,5 +17,8 @@ namespace ElectricityConsumerContracts.ViewModels
 
         [DisplayName("Отчество")]
         public string Patronymic { get; set; }
+
+        [DisplayName("ФИО")]
+        public string FIO { get; set; }
     }
 }

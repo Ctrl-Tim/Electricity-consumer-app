@@ -114,7 +114,6 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             address.House = model.House;
             address.Flat = model.Flat;
             address.ConsumerId = (int)model.ConsumerId;
-            address.ElectricMeterId = (int)model.ElectricMeterId;
 
             return address;
         }
@@ -126,7 +125,6 @@ namespace ElectricityConsumerDatabaseImplement.Implements
                 Id = address.Id,
                 ConsumerId = (int)address.ConsumerId,
                 ConsumerFIO = address.Consumer.SurName + " " + address.Consumer.FirstName + " " + address.Consumer.Patronymic,
-                ElectricMeterId = (int)address.ElectricMeterId,
                 Street = address.Street,
                 House = address.House,
                 Flat = address.Flat
