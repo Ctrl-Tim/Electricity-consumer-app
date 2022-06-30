@@ -2,6 +2,7 @@
 using ElectricityConsumerContracts.BusinessLogicsContracts;
 using System;
 using System.Windows.Forms;
+using System.ComponentModel;
 using Unity;
 
 namespace ElectricityConsumerView
@@ -85,6 +86,12 @@ namespace ElectricityConsumerView
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void dataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+                dataGridView.Sort(dataGridView.Columns[1], ListSortDirection.Ascending);
+            //var list = _logic.Read(null).Sort();
         }
     }
 }

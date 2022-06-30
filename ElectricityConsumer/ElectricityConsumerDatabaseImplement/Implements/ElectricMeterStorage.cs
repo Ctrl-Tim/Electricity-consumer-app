@@ -15,7 +15,9 @@ namespace ElectricityConsumerDatabaseImplement.Implements
         {
             using var context = new ElectricityConsumerDatabase();
             return context.ElectricMeters
+                .Include(rec => rec.TypeElectricMeter)
                 .Include(rec => rec.Address)
+                .Include(rec => rec.Address.Consumer)
                 .ToList()
                 .Select(CreateModel)
                 .ToList();
@@ -29,7 +31,9 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             }
             using var context = new ElectricityConsumerDatabase();
             return context.ElectricMeters
+                .Include(rec => rec.TypeElectricMeter)
                 .Include(rec => rec.Address)
+                .Include(rec => rec.Address.Consumer)
                 .Where(rec => (rec.Number == model.Number) || (rec.TypeId == model.TypeId)
                                 || (rec.InspectionPeriod == model.InspectionPeriod) || (!model.DateOfCheck.HasValue && !model.FinalInspection.HasValue))
                 .ToList()
@@ -45,7 +49,9 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             }
             using var context = new ElectricityConsumerDatabase();
             var component = context.ElectricMeters
+                .Include(rec => rec.TypeElectricMeter)
                 .Include(rec => rec.Address)
+                .Include(rec => rec.Address.Consumer)
                 .FirstOrDefault(rec => rec.Id == model.Id || rec.Number == model.Number);
             return component != null ? CreateModel(component) : null;
         }
@@ -106,8 +112,9 @@ namespace ElectricityConsumerDatabaseImplement.Implements
 
         private static ElectricMeter CreateModel(ElectricMeterBindingModel model, ElectricMeter electricmeter)
         {
+            electricmeter.Id = model.AddressId;
             electricmeter.TypeId = model.TypeId;
-            electricmeter.Number = model.Number;
+            electricmeter.Number = Math.Round(model.Number);
             electricmeter.DateOfCheck = model.DateOfCheck;
             electricmeter.InspectionPeriod = model.InspectionPeriod;
             electricmeter.FinalInspection = model.FinalInspection;
@@ -119,10 +126,10 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             return new ElectricMeterViewModel
             {
                 Id = electricmeter.Id,
-                Number = electricmeter.Number,
+                Number = Math.Round(electricmeter.Number),
                 TypeId = electricmeter.TypeId,
-                TypeName = electricmeter.Type.Name,
-                FullAddress = electricmeter.Address.Street + " " + electricmeter.Address.House + " " + electricmeter.Address.Flat,
+                TypeName = electricmeter.TypeElectricMeter.Name,
+                FullAddress = "ул. " + electricmeter.Address.Street + ", д." + electricmeter.Address.House + ", кв." + electricmeter.Address.Flat,
                 ConsumerFIO = electricmeter.Address.Consumer.SurName + " " + electricmeter.Address.Consumer.FirstName + " " + electricmeter.Address.Consumer.Patronymic,
                 DateOfCheck = electricmeter.DateOfCheck,
                 InspectionPeriod = electricmeter.InspectionPeriod,

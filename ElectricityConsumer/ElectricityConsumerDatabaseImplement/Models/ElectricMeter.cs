@@ -26,7 +26,7 @@ namespace ElectricityConsumerDatabaseImplement.Models
 
         public DateTime? FinalInspection { get; set; }
 
-        public virtual TypeElectricMeter Type { get; set; }
+        public virtual TypeElectricMeter TypeElectricMeter { get; set; }
 
         public virtual Address Address { get; set; }
 

@@ -46,6 +46,7 @@
             this.dataGridView.RowTemplate.Height = 25;
             this.dataGridView.Size = new System.Drawing.Size(227, 305);
             this.dataGridView.TabIndex = 0;
+            this.dataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_ColumnHeaderMouseClick);
             // 
             // buttonAdd
             // 

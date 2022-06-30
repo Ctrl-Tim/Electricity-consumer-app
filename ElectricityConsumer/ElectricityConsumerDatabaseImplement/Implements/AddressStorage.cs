@@ -17,6 +17,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
 
             return context.Addresses
                 .Include(rec => rec.Consumer)
+                .Include(rec => rec.ElectricMeter)
                 .ToList()
                 .Select(CreateModel)
                 .ToList();
@@ -32,6 +33,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             using var context = new ElectricityConsumerDatabase();
             return context.Addresses
                 .Include(rec => rec.Consumer)
+                .Include(rec => rec.ElectricMeter)
                 .Where(rec => rec.Street.Contains(model.Street) && rec.House == model.House && rec.Flat == model.Flat)
                 .ToList()
                 .Select(CreateModel)
@@ -48,6 +50,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             using var context = new ElectricityConsumerDatabase();
             var component = context.Addresses
                 .Include(rec => rec.Consumer)
+                .Include(rec => rec.ElectricMeter)
                 .FirstOrDefault(rec => rec.Id == model.Id);
             return component != null ? CreateModel(component) : null;
         }
@@ -125,9 +128,11 @@ namespace ElectricityConsumerDatabaseImplement.Implements
                 Id = address.Id,
                 ConsumerId = (int)address.ConsumerId,
                 ConsumerFIO = address.Consumer.SurName + " " + address.Consumer.FirstName + " " + address.Consumer.Patronymic,
+                ElectricMeterNumber = (address.ElectricMeter == null) ? null : Math.Round((decimal)address.ElectricMeter.Number),
                 Street = address.Street,
                 House = address.House,
-                Flat = address.Flat
+                Flat = address.Flat,
+                FullAddress = "ул. " + address.Street + ", д." + address.House + ", кв." + address.Flat
             };
         }
     }

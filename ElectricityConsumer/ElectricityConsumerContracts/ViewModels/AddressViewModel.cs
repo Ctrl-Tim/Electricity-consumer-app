@@ -11,8 +11,6 @@ namespace ElectricityConsumerContracts.ViewModels
 
         public int ConsumerId { get; set; }
 
-        public int ElectricMeterId { get; set; }
-
         [DisplayName("Улица")]
         public string Street { get; set; }
 
@@ -22,7 +20,13 @@ namespace ElectricityConsumerContracts.ViewModels
         [DisplayName("Квартира")]
         public int Flat { get; set; }
 
+        [DisplayName("Адрес")]
+        public string FullAddress { get; set; }
+
         [DisplayName("ФИО потребителя")]
         public string ConsumerFIO { get; set; }
+
+        [DisplayName("Номер счётчика")]
+        public decimal? ElectricMeterNumber { get; set; }
     }
 }
