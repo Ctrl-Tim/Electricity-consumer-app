@@ -41,7 +41,7 @@ namespace ElectricityConsumerBusinessLogic.BusinessLogics
             {
                 throw new Exception("Уже есть электросчётчик с таким номером");
             }
-            if (model.Id.HasValue)
+            if (model.Id.HasValue && element != null)
             {
                 _electricmeterStorage.Update(model);
             }
@@ -56,9 +56,56 @@ namespace ElectricityConsumerBusinessLogic.BusinessLogics
             var element = _electricmeterStorage.GetElement(new ElectricMeterBindingModel { Id = model.Id });
             if (element == null)
             {
-                throw new Exception("Электросчётчика не найден!");
+                throw new Exception("Счётчик не найден!");
             }
             _electricmeterStorage.Delete(model);
+        }
+
+        public void CheckInspection(ElectricMeterBindingModel model)
+        {
+            var em = _electricmeterStorage.GetElement(new ElectricMeterBindingModel { Id = model.Id });
+
+            if (em == null)
+            {
+                throw new Exception("Не найден счётчик");
+            }
+            if (DateTime.Today.AddDays(7) < Convert.ToDateTime(em.FinalInspection).AddYears(em.InspectionPeriod)) //за неделю до крайнего срока
+            {
+                throw new Exception("Время госпроверки ещё не пришло");
+            }
+
+            _electricmeterStorage.Update(new ElectricMeterBindingModel
+            {
+                Id = em.Id,
+                TypeId = em.TypeId,
+                Number = Math.Round(em.Number),
+                DateOfCheck = em.DateOfCheck,
+                InspectionPeriod = em.InspectionPeriod,
+                FinalInspection = DateTime.Now
+            });
+        }
+
+        public void CreateReading(ElectricMeterBindingModel model)
+        {
+            var em = _electricmeterStorage.GetElement(new ElectricMeterBindingModel { Id = model.Id });
+            if (em == null)
+            {
+                throw new Exception("Не найден счётчик");
+            }
+            if (DateTime.Today < Convert.ToDateTime(em.DateOfCheck))
+            {
+                throw new Exception("Время снятия показаний ещё не пришло");
+            }
+
+            _electricmeterStorage.Update(new ElectricMeterBindingModel
+            {
+                Id = em.Id,
+                TypeId = em.TypeId,
+                Number = Math.Round(em.Number),
+                DateOfCheck = em.DateOfCheck.Value.AddMonths(1),
+                InspectionPeriod = em.InspectionPeriod,
+                FinalInspection = em.FinalInspection
+            });
         }
     }
 }

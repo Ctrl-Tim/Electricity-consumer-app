@@ -11,5 +11,9 @@ namespace ElectricityConsumerContracts.BusinessLogicsContracts
         void CreateOrUpdate(ElectricMeterBindingModel model);
 
         void Delete(ElectricMeterBindingModel model);
+
+        void CheckInspection(ElectricMeterBindingModel model);
+
+        void CreateReading(ElectricMeterBindingModel model);
     }
 }

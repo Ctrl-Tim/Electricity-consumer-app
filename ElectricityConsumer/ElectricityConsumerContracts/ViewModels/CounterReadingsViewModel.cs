@@ -12,6 +12,8 @@ namespace ElectricityConsumerContracts.ViewModels
 
         public int ElectricMeterId { get; set; }
 
+        public int ConsumerId { get; set; }
+
         [DisplayName("Номер счётчика")]
         public decimal Number { get; set; }
 

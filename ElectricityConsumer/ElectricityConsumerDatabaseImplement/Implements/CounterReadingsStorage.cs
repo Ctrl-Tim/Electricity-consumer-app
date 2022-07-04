@@ -16,6 +16,8 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             using var context = new ElectricityConsumerDatabase();
             return context.CounterReadingss
                 .Include(rec => rec.ElectricMeter)
+                .Include(rec => rec.ElectricMeter.Address)
+                .Include(rec => rec.ElectricMeter.Address.Consumer)
                 .ToList()
                 .Select(CreateModel)
                 .ToList();
@@ -30,6 +32,8 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             using var context = new ElectricityConsumerDatabase();
             return context.CounterReadingss
                 .Include(rec => rec.ElectricMeter)
+                .Include(rec => rec.ElectricMeter.Address)
+                .Include(rec => rec.ElectricMeter.Address.Consumer)
                 .Where(rec =>  (rec.ElectricMeterId == model.ElectricMeterId) || (rec.Date == model.Date)
                                 || (rec.BeginningOfMonth == model.BeginningOfMonth) || (rec.EndOfMonth == model.EndOfMonth))
                 .ToList()
@@ -46,6 +50,8 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             using var context = new ElectricityConsumerDatabase();
             var component = context.CounterReadingss
                 .Include(rec => rec.ElectricMeter)
+                .Include(rec => rec.ElectricMeter.Address)
+                .Include(rec => rec.ElectricMeter.Address.Consumer)
                 .FirstOrDefault(rec => rec.Id == model.Id);
             return component != null ? CreateModel(component) : null;
         }
@@ -120,8 +126,9 @@ namespace ElectricityConsumerDatabaseImplement.Implements
             {
                 Id = counter.Id,
                 ElectricMeterId = counter.ElectricMeterId,
-                Number = counter.ElectricMeter.Number,
-                FullAddress = counter.ElectricMeter.Address.Street + " " + counter.ElectricMeter.Address.House + " " + counter.ElectricMeter.Address.Flat,
+                ConsumerId = counter.ElectricMeter.Address.ConsumerId,
+                Number = Math.Round(counter.ElectricMeter.Number),
+                FullAddress = "ул." + counter.ElectricMeter.Address.Street + ", дом." + counter.ElectricMeter.Address.House + ", кв." + counter.ElectricMeter.Address.Flat,
                 Date = counter.Date,
                 BeginningOfMonth = counter.BeginningOfMonth,
                 EndOfMonth = counter.EndOfMonth

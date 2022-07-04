@@ -4,7 +4,6 @@ using ElectricityConsumerContracts.ViewModels;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using Unity;
 
 namespace ElectricityConsumerView
 {
@@ -36,6 +35,8 @@ namespace ElectricityConsumerView
                     comboBoxType.ValueMember = "Id";
                     comboBoxType.DataSource = listTypes;
                     comboBoxType.SelectedItem = null;
+                    comboBoxType.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    comboBoxType.AutoCompleteSource = AutoCompleteSource.ListItems;
                 }
                 else
                 {
@@ -49,6 +50,8 @@ namespace ElectricityConsumerView
                     comboBoxAddress.ValueMember = "Id";
                     comboBoxAddress.DataSource = listAddresses;
                     comboBoxAddress.SelectedItem = null;
+                    comboBoxAddress.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    comboBoxAddress.AutoCompleteSource = AutoCompleteSource.ListItems;
                 }
                 else
                 {
@@ -142,7 +145,8 @@ namespace ElectricityConsumerView
                 MessageBox.Show("Выберите дату последней проверки", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (_logicA.Read(null).FindIndex(x => x.Id == (int)comboBoxAddress.SelectedValue) != -1)
+            AddressViewModel address = _logicA.Read(new AddressBindingModel { Id = Convert.ToInt32(comboBoxAddress.SelectedValue) })?[0];
+            if (address.ElectricMeterNumber != null && !id.HasValue)
             {
                 MessageBox.Show("Адрес уже занят другим счётчиком", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -151,9 +155,9 @@ namespace ElectricityConsumerView
             {
                 _logicE.CreateOrUpdate(new ElectricMeterBindingModel
                 {
+                    Id = Convert.ToInt32(comboBoxAddress.SelectedValue),
                     TypeId = Convert.ToInt32(comboBoxType.SelectedValue),
                     Number = Convert.ToDecimal(textBoxNumber.Text),
-                    AddressId = Convert.ToInt32(comboBoxAddress.SelectedValue),
                     DateOfCheck = dateTimePickerDateOfCheck.Value,
                     InspectionPeriod = Convert.ToInt32(textBoxInspectionPeriod.Text),
                     FinalInspection = dateTimePickerFinalInspection.Value

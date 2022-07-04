@@ -11,8 +11,6 @@ namespace ElectricityConsumerContracts.BindingModels
 
         public int TypeId { get; set; }
 
-        public int AddressId { get; set; }
-
         public decimal Number { get; set; }
 
         public DateTime? DateOfCheck { get; set; }

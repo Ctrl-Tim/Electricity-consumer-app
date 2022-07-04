@@ -4,7 +4,6 @@ using ElectricityConsumerContracts.ViewModels;
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using Unity;
 
 namespace ElectricityConsumerView
 {
@@ -32,6 +31,8 @@ namespace ElectricityConsumerView
                 comboBoxConsumer.ValueMember = "Id";
                 comboBoxConsumer.DataSource = listConsumers;
                 comboBoxConsumer.SelectedItem = null;
+                comboBoxConsumer.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                comboBoxConsumer.AutoCompleteSource = AutoCompleteSource.ListItems;
             }
             else
             {
@@ -87,6 +88,7 @@ namespace ElectricityConsumerView
             {
                 _logicA.CreateOrUpdate(new AddressBindingModel
                 {
+                    Id = id,
                     ConsumerId = Convert.ToInt32(comboBoxConsumer.SelectedValue),
                     Street = textBoxStreet.Text,
                     House = Convert.ToInt32(textBoxHouse.Text),

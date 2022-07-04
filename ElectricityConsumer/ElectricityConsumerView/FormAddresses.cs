@@ -1,6 +1,7 @@
 ﻿using ElectricityConsumerContracts.BindingModels;
 using ElectricityConsumerContracts.BusinessLogicsContracts;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Unity;
 
@@ -28,15 +29,15 @@ namespace ElectricityConsumerView
                 var list = _logic.Read(null);
                 if (list != null)
                 {
-                    dataGridView.DataSource = list;
+                    dataGridView.DataSource = list.OrderBy(x => x.FullAddress).ToList();
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
                     dataGridView.Columns[2].Visible = false;
                     dataGridView.Columns[3].Visible = false;
-                    dataGridView.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[4].Visible = false;
                     dataGridView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[7].Width = 80;
                     labelCount.Text = "Кол-во адресов: " + list.Count;
                 }
             }
@@ -70,7 +71,7 @@ namespace ElectricityConsumerView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Удалить запись?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
@@ -89,6 +90,68 @@ namespace ElectricityConsumerView
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void dataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridView grid = (DataGridView)sender;
+            SortOrder so = SortOrder.None;
+            if (grid.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == SortOrder.None ||
+                grid.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == SortOrder.Ascending)
+            {
+                so = SortOrder.Descending;
+            }
+            else
+            {
+                so = SortOrder.Ascending;
+            }
+            //установка SortGlyphDirection после привязки к базе данных, иначе всегда будет none 
+            Sort(grid.Columns[e.ColumnIndex].Name, so);
+            grid.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = so;
+        }
+
+        private void Sort(string column, SortOrder sortOrder)
+        {
+            var list = _logic.Read(null);
+            switch (column)
+            {
+                case "FullAddress":
+                    {
+                        if (sortOrder == SortOrder.Ascending)
+                        {
+                            dataGridView.DataSource = list.OrderBy(x => x.FullAddress).ToList();
+                        }
+                        else
+                        {
+                            dataGridView.DataSource = list.OrderByDescending(x => x.FullAddress).ToList();
+                        }
+                        break;
+                    }
+                case "ConsumerFIO":
+                    {
+                        if (sortOrder == SortOrder.Ascending)
+                        {
+                            dataGridView.DataSource = list.OrderBy(x => x.ConsumerFIO).ToList();
+                        }
+                        else
+                        {
+                            dataGridView.DataSource = list.OrderByDescending(x => x.ConsumerFIO).ToList();
+                        }
+                        break;
+                    }
+                case "ElectricMeterNumber":
+                    {
+                        if (sortOrder == SortOrder.Ascending)
+                        {
+                            dataGridView.DataSource = list.OrderBy(x => x.ElectricMeterNumber).ToList();
+                        }
+                        else
+                        {
+                            dataGridView.DataSource = list.OrderByDescending(x => x.ElectricMeterNumber).ToList();
+                        }
+                        break;
+                    }
+            }
         }
     }
 }

@@ -38,7 +38,8 @@ namespace ElectricityConsumerDatabaseImplement.Implements
                 return null;
             }
             using var context = new ElectricityConsumerDatabase();
-            var component = context.Consumers.FirstOrDefault(rec => rec.Id == model.Id || rec.SurName == model.SurName);
+            var component = context.Consumers.FirstOrDefault(rec => rec.Id == model.Id
+                                              || (rec.SurName == model.SurName && rec.FirstName == model.FirstName && rec.Patronymic == model.Patronymic));
             return component != null ? CreateModel(component) : null;
         }
 

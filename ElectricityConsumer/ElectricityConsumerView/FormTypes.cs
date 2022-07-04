@@ -3,6 +3,7 @@ using ElectricityConsumerContracts.BusinessLogicsContracts;
 using System;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Linq;
 using Unity;
 
 namespace ElectricityConsumerView
@@ -29,7 +30,7 @@ namespace ElectricityConsumerView
                 var list = _logic.Read(null);
                 if (list != null)
                 {
-                    dataGridView.DataSource = list;
+                    dataGridView.DataSource = list.OrderBy(x => x.Name).ToList();
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     labelCount.Text = "Кол-во типов: " + list.Count;
@@ -67,7 +68,7 @@ namespace ElectricityConsumerView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Удалить запись?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
@@ -90,8 +91,40 @@ namespace ElectricityConsumerView
 
         private void dataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-                dataGridView.Sort(dataGridView.Columns[1], ListSortDirection.Ascending);
-            //var list = _logic.Read(null).Sort();
+            DataGridView grid = (DataGridView)sender;
+            SortOrder so = SortOrder.None;
+            if (grid.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == SortOrder.None ||
+                grid.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection == SortOrder.Ascending)
+            {
+                so = SortOrder.Descending;
+            }
+            else
+            {
+                so = SortOrder.Ascending;
+            }
+            //установка SortGlyphDirection после привязки к базе данных, иначе всегда будет none 
+            Sort(grid.Columns[e.ColumnIndex].Name, so);
+            grid.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = so;
+        }
+
+        private void Sort(string column, SortOrder sortOrder)
+        {
+            var list = _logic.Read(null);
+            switch (column)
+            {
+                case "Name":
+                    {
+                        if (sortOrder == SortOrder.Ascending)
+                        {
+                            dataGridView.DataSource = list.OrderBy(x => x.Name).ToList();
+                        }
+                        else
+                        {
+                            dataGridView.DataSource = list.OrderByDescending(x => x.Name).ToList();
+                        }
+                        break;
+                    }
+            }
         }
     }
 }

@@ -112,7 +112,7 @@ namespace ElectricityConsumerDatabaseImplement.Implements
 
         private static ElectricMeter CreateModel(ElectricMeterBindingModel model, ElectricMeter electricmeter)
         {
-            electricmeter.Id = model.AddressId;
+            electricmeter.Id = (int)model.Id;
             electricmeter.TypeId = model.TypeId;
             electricmeter.Number = Math.Round(model.Number);
             electricmeter.DateOfCheck = model.DateOfCheck;
