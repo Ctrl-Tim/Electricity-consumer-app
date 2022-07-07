@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElectricityConsumerDatabaseImplement.Migrations
 {
     [DbContext(typeof(ElectricityConsumerDatabase))]
-    [Migration("20220630081321_InitialCreate")]
+    [Migration("20220707141216_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,7 +170,7 @@ namespace ElectricityConsumerDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ElectricityConsumerDatabaseImplement.Models.TypeElectricMeter", "Type")
+                    b.HasOne("ElectricityConsumerDatabaseImplement.Models.TypeElectricMeter", "TypeElectricMeter")
                         .WithMany("ElectricMeters")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -178,7 +178,7 @@ namespace ElectricityConsumerDatabaseImplement.Migrations
 
                     b.Navigation("Address");
 
-                    b.Navigation("Type");
+                    b.Navigation("TypeElectricMeter");
                 });
 
             modelBuilder.Entity("ElectricityConsumerDatabaseImplement.Models.Address", b =>
